@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "sst-dev.opencode",
+    "ms-vscode-remote.remote-containers",
+    "ms-azuretools.vscode-docker",
+    "docker.docker",
+    "ms-azuretools.vscode-containers"
+  ]
+}

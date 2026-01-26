@@ -1,0 +1,15 @@
+{
+    "id": "devcontainer-feature-opencode",
+    "name": "OpenCode CLI",
+    "version": "1.0.0",
+    "description": "Installs OpenCode CLI inside a dev container",
+    "documentationURL": "https://opencode.ai",
+    "options": {
+        "version": {
+            "type": "string",
+            "default": "",
+            "description": "OpenCode version to install"
+        }
+    },
+    "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}
