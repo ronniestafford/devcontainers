@@ -1,21 +1,24 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
-  "customizations": {
-    "vscode": {
-      "settings": {
-        "json.schemas": [
-          {
-            "fileMatch": ["*/devcontainer-feature.json"],
-            "url": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json"
-          }
-        ]
-      },
-      "extensions": ["mads-hartmann.bash-ide-vscode"]
-    }
-  },
-  "features": {
-    "ghcr.io/ronniestafford/devcontainers/opencode:0": {}
-  },
-  "remoteUser": "node",
-  "updateContentCommand": "npm install -g @devcontainers/cli"
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
+    "name": "devcontainer-opencode",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "json.schemas": [
+                    {
+                        "fileMatch": ["*/devcontainer-feature.json"],
+                        "url": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json"
+                    }
+                ]
+            },
+            "extensions": ["mads-hartmann.bash-ide-vscode"]
+        }
+    },
+    "features": {
+        "ghcr.io/ronniestafford/devcontainers/opencode:0": {},
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/node:1": {}
+    },
+    "remoteUser": "node",
+    "updateContentCommand": "npm install -g @devcontainers/cli"
 }

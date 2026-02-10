@@ -1,13 +1,22 @@
 # devcontainers
 
-[Dev container Features](https://containers.dev/implementors/features/) for use with VSCode devcontainers, following the [dev container Feature distribution specification](https://containers.dev/implementors/features-distribution/). The CLI we use is found [here](https://github.com/devcontainers/cli).
+## This repo
+This repo is based on [template-starter](https://github.com/devcontainers/template-starter) for building and publishing custom VSCode devcontainer features. Each custom [feature](https://containers.dev/implementors/features/) is described by the devcontainer [specification](https://containers.dev/implementors/features-distribution/).
+
+See also devcontainer [org](https://github.com/devcontainers) and [CLI](https://github.com/devcontainers/cli).
+
+## Using a custom devcontainer feature in your repo
+Custom features available:
+- [Opencode](https://opencode.ai/)
+
+To add a devcontainer to your project with features from this project, include an equivalent `.devcontainer/devcontainer.json` in your project repo.
+
 
 ## Project Structure
-
 ```
 devcontainers/
 ├── .devcontainer/                          # Used for testing features in local dev environment, not published
-│   └── devcontainer.json               
+│   └── devcontainer.json                   # Add to your own repo in order to specify features in your own devcontainer.
 ├── .github                             
 │   └── workflows                       
 │       ├── publish.yml                     # Publish to container registry
