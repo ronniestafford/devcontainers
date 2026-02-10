@@ -1,16 +1,15 @@
 # devcontainers
 
-## This repo
+## This Repo
 This repo is based on [template-starter](https://github.com/devcontainers/template-starter) for building and publishing custom VSCode devcontainer features. Each custom [feature](https://containers.dev/implementors/features/) is described by the devcontainer [specification](https://containers.dev/implementors/features-distribution/).
 
 See also devcontainer [org](https://github.com/devcontainers) and [CLI](https://github.com/devcontainers/cli).
 
-## Using a custom devcontainer feature in your repo
+## Using a Custom devcontainer Feature in Your Project Repo
 Custom features available:
 - [Opencode](https://opencode.ai/)
 
 To add a devcontainer to your project with features from this project, include an equivalent `.devcontainer/devcontainer.json` in your project repo.
-
 
 ## Project Structure
 ```
@@ -43,8 +42,25 @@ devcontainers/
 ...
 ```
 
-## Run tests locally
+## Local Feature Development
+### Dependencies (Tests)
 
+The following installs node via nvm as described [here](https://nodejs.org/en/download/package-manager).
+
+```bash
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash    # installs nvm (Node Version Manager) v0.40.1
+$ nvm -v
+```
+
+Reopening the terminal, `nvm` will read `.nvmrc` file to check the required node version.
+
+```bash
+$ nvm install        # download and install Node.js specified in .nvmrc (restart the terminal first)
+$ node -v            # verifies the right Node.js version is in the environment
+$ npm -v             # verifies the right npm version is in the environment
+```
+
+### Run Tests
 Make sure all shell test scripts are executable `chmod +x "${SHELL_SCRIPT}"`.
 
 ```bash

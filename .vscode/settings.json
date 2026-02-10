@@ -3,5 +3,6 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["opencode"]
+  "cSpell.words": ["opencode"],
+  "editor.tabSize": 2
 }
