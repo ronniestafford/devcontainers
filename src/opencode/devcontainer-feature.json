@@ -1,5 +1,5 @@
 {
-    "id": "devcontainer-feature-opencode",
+    "id": "opencode",
     "name": "OpenCode CLI",
     "version": "1.0.0",
     "description": "Installs OpenCode CLI inside a dev container",

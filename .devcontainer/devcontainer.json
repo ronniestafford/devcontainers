@@ -15,7 +15,7 @@
         }
     },
     "features": {
-        "ghcr.io/ronniestafford/devcontainers/opencode:0": {},
+        "ghcr.io/ronniestafford/features/opencode:latest": {},
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/node:1": {}
     },
