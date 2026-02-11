@@ -32,7 +32,9 @@ jobs:
 
       - name: Get version
         id: get_version
-        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Generate feature docs
         uses: devcontainers/action@v1
@@ -62,10 +64,9 @@ jobs:
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Push commit to origin
-        run: git push origin main
-
-      - name: Push tag to origin
-        run: git push origin "v$VERSION"
-        env:
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
+      - name: Push changes
+        uses: ad-m/github-push-action@v1.0.0
+        with:
+          github_token: ${{ secrets.DEVCONTAINERS_RELEASE_TOKEN }}
+          branch: main
+          tags: true
