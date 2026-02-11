@@ -1,15 +1,17 @@
 {
-    "id": "opencode",
-    "name": "OpenCode CLI",
-    "version": "1.0.0",
-    "description": "Installs OpenCode CLI inside a dev container",
-    "documentationURL": "https://opencode.ai",
-    "options": {
-        "version": {
-            "type": "string",
-            "default": "latest",
-            "description": "OpenCode version to install"
-        }
-    },
-    "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+  "id": "opencode",
+  "name": "OpenCode CLI",
+  "version": "0.0.3",
+  "description": "Installs OpenCode CLI inside a dev container",
+  "documentationURL": "https://opencode.ai",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "OpenCode version to install"
+    }
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils"
+  ]
 }
