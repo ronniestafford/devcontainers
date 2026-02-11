@@ -4,5 +4,6 @@
     },
     "scripts": {
         "test:features": "devcontainer features test"
-    }
+    },
+    "version": "0.0.1"
 }
