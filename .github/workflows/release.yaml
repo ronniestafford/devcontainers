@@ -45,7 +45,7 @@ jobs:
       - name: Create tag
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          git tag "v$VERSION"
+          git tag -a v$VERSION -m "Release v$VERSION"
 
       - name: Push commit and tag to origin
         run: git push origin main --follow-tags
