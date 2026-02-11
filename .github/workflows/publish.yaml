@@ -18,6 +18,7 @@ jobs:
 
       # npm install -g @devcontainers/cli
       # devcontainer features publish ./src --namespace ghcr.io/ronniestafford
+      # devcontainer features publish -r ghcr.io -n ronniestafford/devcontainers ./src
       - name: Publish devcontainer features
         uses: devcontainers/action@v1
         with:
