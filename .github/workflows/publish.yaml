@@ -16,12 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # npm install -g @devcontainers/cli
+      # devcontainer features publish ./src --namespace ghcr.io/ronniestafford
       - name: Publish devcontainer features
-        uses: devcontainers/action@v1.4.3
+        uses: devcontainers/action@v1
         with:
           publish-features: "true"
           base-path-to-features: "./src"
           generate-docs: "false"
-          devcontainer-cli-version: "0.83.0"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
