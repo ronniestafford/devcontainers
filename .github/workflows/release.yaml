@@ -30,22 +30,40 @@ jobs:
       - name: Bump version
         run: npm version patch --no-git-tag-version
 
+      - name: Get version
+        id: get_version
+        run: echo "VERSION=$(node -p \"require('./package.json').version\")" >> $GITHUB_OUTPUT
+
       - name: Generate feature docs
         uses: devcontainers/action@v1
         with:
           generate-docs: "true"
           base-path-to-features: "./src"
 
+      - name: Update feature versions
+        run: |
+          find ./src -name devcontainer-feature.json -print0 | while IFS= read -r -d '' FILE; do
+            jq ".version = \"$VERSION\"" "$FILE" > tmp.$$.json
+            mv tmp.$$.json "$FILE"
+          done
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+
       - name: Commit release
         run: |
-          VERSION=$(node -p "require('./package.json').version")
-          git add .
+          git add package.json package-lock.json $(find ./src -name devcontainer-feature.json)
           git commit -m "chore(release): v$VERSION"
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Create tag
+      - name: Create annotated tag
         run: |
-          VERSION=$(node -p "require('./package.json').version")
-          git tag -a v$VERSION -m "Release v$VERSION"
+          git tag -a "v$VERSION" -m "Release v$VERSION"
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Push commit and tag to origin
-        run: git push origin main --follow-tags
+      - name: Push commit to origin
+        run: git push origin main
+
+      - name: Push tag to origin
+        run: git push origin "v$VERSION"
