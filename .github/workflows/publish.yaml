@@ -1,61 +1,24 @@
-name: "Publish: dev container features & generate documentation"
+name: Publish
+
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
 
 jobs:
-  deploy:
-    if: ${{ github.ref == 'refs/heads/main' }}
+  publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
       packages: write
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: "Publish Features"
+      - name: Publish devcontainer features
         uses: devcontainers/action@v1
         with:
           publish-features: "true"
           base-path-to-features: "./src"
-          generate-docs: "true"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set bash strict mode
-        run: set -e
-
-      - name: Configure Git
-        run: |
-          git config --global user.email github-actions[bot]@users.noreply.github.com
-          git config --global user.name github-actions[bot]
-          git config pull.rebase false
-
-      - name: Create new branch
-        id: create-branch
-        run: |
-          branch=automated-documentation-update-$GITHUB_RUN_ID
-          git checkout -b $branch
-          echo "branch=$branch" >> $GITHUB_OUTPUT
-        env:
-          GITHUB_RUN_ID: ${{ github.run_id }}
-
-      - name: Add and commit updates
-        id: commit
-        run: |
-          message='Automated documentation update'
-          git add */**/README.md
-          if git commit -m 'Automated documentation update [skip ci]'; then
-            echo "updates=true" >> $GITHUB_OUTPUT
-          else
-            echo "updates=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Push changes and create PR
-        if: steps.commit.outputs.updates != 'true'
-        run: |
-          git push origin "$branch"
-          gh pr create --title "$message" --body "$message"
-        env:
-          message: Automated documentation update
-          branch: ${{ steps.create-branch.outputs.branch }}

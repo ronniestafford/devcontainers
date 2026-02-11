@@ -1,10 +1,9 @@
-name: "Test: dev container features"
+name: Review
+
 on:
-  push:
+  pull_request:
     branches:
       - main
-  pull_request:
-  workflow_dispatch:
 
 jobs:
   test-each-feature:
