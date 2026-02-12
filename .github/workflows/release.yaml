@@ -64,14 +64,17 @@ jobs:
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Debug tags
+      - name: Push commit and tag to origin
         run: |
-          git tag
-          git show-ref --tags
+          git remote set-url origin https://x-access-token:${{ secrets.DEVCONTAINERS_RELEASE_TOKEN }}@github.com/${{ github.repository }}
+          git push origin main
+          git push origin v$VERSION
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Push changes
-        uses: ad-m/github-push-action@v1.0.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-          tags: true
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@v1.0.0
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: main
+      #     tags: true
