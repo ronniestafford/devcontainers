@@ -67,6 +67,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@v1.0.0
         with:
-          github_token: ${{ secrets.DEVCONTAINERS_RELEASE_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          #github_token: ${{ secrets.DEVCONTAINERS_RELEASE_TOKEN }}
           branch: main
           tags: true
