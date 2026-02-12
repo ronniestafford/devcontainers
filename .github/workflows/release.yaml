@@ -64,10 +64,14 @@ jobs:
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
+      - name: Debug tags
+        run: |
+          git tag
+          git show-ref --tags
+
       - name: Push changes
         uses: ad-m/github-push-action@v1.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          #github_token: ${{ secrets.DEVCONTAINERS_RELEASE_TOKEN }}
           branch: main
           tags: true
