@@ -19,7 +19,7 @@
   //     "OPENAI_BASE_URL": "http://host.docker.internal:8000/v1"
   //   },
   "features": {
-    "ghcr.io/ronniestafford/features/opencode:latest": {},
+    "ghcr.io/ronniestafford/devcontainers/opencode:latest": {},
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/node:1": {}
   },
