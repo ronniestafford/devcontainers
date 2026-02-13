@@ -1,24 +1,40 @@
 {
-    "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
-    "name": "devcontainer-opencode",
-    "customizations": {
-        "vscode": {
-            "settings": {
-                "json.schemas": [
-                    {
-                        "fileMatch": ["*/devcontainer-feature.json"],
-                        "url": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json"
-                    }
-                ]
-            },
-            "extensions": ["mads-hartmann.bash-ide-vscode"]
-        }
-    },
-    "features": {
-        "ghcr.io/ronniestafford/features/opencode:latest": {},
-        "ghcr.io/devcontainers/features/git:1": {},
-        "ghcr.io/devcontainers/features/node:1": {}
-    },
-    "remoteUser": "node",
-    "updateContentCommand": "npm install -g @devcontainers/cli"
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bookworm",
+  "name": "devcontainer-opencode",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "json.schemas": [
+          {
+            "fileMatch": ["*/devcontainer-feature.json"],
+            "url": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json"
+          }
+        ]
+      },
+      "extensions": ["mads-hartmann.bash-ide-vscode"]
+    }
+  },
+  //   "containerEnv": {
+  //     "OPENAI_API_KEY": "local",
+  //     "OPENAI_BASE_URL": "http://host.docker.internal:8000/v1"
+  //   },
+  "features": {
+    "ghcr.io/ronniestafford/features/opencode:latest": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+  "mounts": [
+    // {
+    //   "source": "${localEnv:HOME}/.config/opencode",
+    //   "target": "/home/dev/.config/opencode",
+    //   "type": "bind"
+    // },
+    {
+      "source": "${localWorkspaceFolder}",
+      "target": "/workspace",
+      "type": "bind"
+    }
+  ],
+  "remoteUser": "dev",
+  "updateContentCommand": "npm install -g @devcontainers/cli"
 }

@@ -7,9 +7,9 @@ See also devcontainer [org](https://github.com/devcontainers) and [CLI](https://
 
 ## Using a Custom devcontainer Feature in Your Project Repo
 Custom features available:
-- [Opencode](https://opencode.ai/)
+- [Opencode](https://opencode.ai/). The opencode devcontainer will look for `opencode.json` config in your project root folder as described [here](https://opencode.ai/docs/config/). An example `opencode-config-example.json` config file is included that you can rename and edit.
 
-To add a devcontainer to your project with features from this project, include an equivalent `.devcontainer/devcontainer.json` in your project repo.
+An example `.devcontainer/devcontainer.json` is included in this repo. Add it to your project repo to use.
 
 ## Project Structure
 ```
