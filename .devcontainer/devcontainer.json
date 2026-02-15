@@ -35,6 +35,6 @@
       "type": "bind"
     }
   ],
-  "remoteUser": "dev",
+  "remoteUser": "node",
   "updateContentCommand": "npm install -g @devcontainers/cli"
 }
