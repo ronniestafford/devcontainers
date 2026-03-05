@@ -10,12 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -53,25 +54,17 @@ jobs:
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Commit version/doc changes
+      - name: Commit version bump
         run: |
           git add package.json package-lock.json $(find ./src -name devcontainer-feature.json)
-          git diff --cached --quiet || git commit -m "chore(release): v${{ steps.get_version.outputs.VERSION }}"
+          git diff --cached --quiet || git commit -m "chore(release): v$VERSION"
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Create Release PR
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore(release): v${{ steps.get_version.outputs.VERSION }}"
-          branch: "release-v${{ steps.get_version.outputs.VERSION }}"
-          title: "Release v${{ steps.get_version.outputs.VERSION }}"
-          body: "Automated release PR for v${{ steps.get_version.outputs.VERSION }}"
-          labels: "release"
-          draft: false
-          base: main
-          delete-branch: true
+      - name: Push to main
+        run: git push origin main
 
-      - name: Push tag if on main
+      - name: Tag release
         run: |
           git tag -a "v$VERSION" -m "Release v$VERSION"
           git push origin "v$VERSION"
