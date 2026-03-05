@@ -13,44 +13,37 @@ jobs:
       pull-requests: write
 
     steps:
-      # 1. Checkout full repo
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2. Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
 
-      # 3. Configure Git
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # 4. Bump patch version (skip commit/tag for now)
       - name: Bump version
         if: github.ref != 'refs/heads/main' # Only bump on PR creation
         run: npm version patch --no-git-tag-version
 
-      # 5. Get version
       - name: Get version
         id: get_version
         run: |
           VERSION=$(node -p "require('./package.json').version")
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
-      # 6. Generate feature docs
       - name: Generate feature docs
         uses: devcontainers/action@v1
         with:
           generate-docs: "true"
           base-path-to-features: "./src"
 
-      # 7. Update feature versions
       - name: Update feature versions
         run: |
           find ./src -name devcontainer-feature.json -print0 | while IFS= read -r -d '' FILE; do
