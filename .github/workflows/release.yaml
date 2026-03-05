@@ -50,22 +50,32 @@ jobs:
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Commit release
+      - name: Commit release changes
         run: |
           git add package.json package-lock.json $(find ./src -name devcontainer-feature.json)
           git commit -m "chore(release): v$VERSION"
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Create annotated tag
-        run: |
-          git tag -a "v$VERSION" -m "Release v$VERSION"
+      - name: Create Release PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(release): v$VERSION"
+          branch: "release-v$VERSION"
+          title: "Release v$VERSION"
+          body: "Automated release PR for v$VERSION"
+          labels: "release"
+          draft: false
+          base: main
+          delete-branch: true
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Push changes
-        uses: ad-m/github-push-action@v1.0.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
-          tags: true
+      - name: Push tag if on main
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git tag -a "v$VERSION" -m "Release v$VERSION"
+          git push origin "v$VERSION"
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
