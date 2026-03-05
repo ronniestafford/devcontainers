@@ -10,67 +10,75 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
+      # 1. Checkout full repo
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # 2. Set up Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
+          cache: "npm"
 
+      # 3. Configure Git
       - name: Configure Git
         run: |
-          git config user.name github-actions[bot]
-          git config user.email github-actions[bot]@users.noreply.github.com
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      # 4. Bump patch version (skip commit/tag for now)
       - name: Bump version
+        if: github.ref != 'refs/heads/main' # Only bump on PR creation
         run: npm version patch --no-git-tag-version
 
+      # 5. Get version
       - name: Get version
         id: get_version
         run: |
           VERSION=$(node -p "require('./package.json').version")
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
+      # 6. Generate feature docs
       - name: Generate feature docs
         uses: devcontainers/action@v1
         with:
           generate-docs: "true"
           base-path-to-features: "./src"
 
+      # 7. Update feature versions
       - name: Update feature versions
         run: |
           find ./src -name devcontainer-feature.json -print0 | while IFS= read -r -d '' FILE; do
-            jq ".version = \"$VERSION\"" "$FILE" > tmp.$$.json
-            mv tmp.$$.json "$FILE"
+            tmpfile=$(mktemp)
+            jq ".version = \"$VERSION\"" "$FILE" > "$tmpfile"
+            mv "$tmpfile" "$FILE"
           done
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
-      - name: Commit release changes
+      - name: Commit version/doc changes
         run: |
           git add package.json package-lock.json $(find ./src -name devcontainer-feature.json)
-          git commit -m "chore(release): v$VERSION"
-        env:
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
+          git diff --cached --quiet || git commit -m "chore(release): v${{ steps.get_version.outputs.VERSION }}"
 
       - name: Create Release PR
+        if: github.ref != 'refs/heads/main'
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore(release): v$VERSION"
-          branch: "release-v$VERSION"
-          title: "Release v$VERSION"
-          body: "Automated release PR for v$VERSION"
+          commit-message: "chore(release): v${{ steps.get_version.outputs.VERSION }}"
+          branch: "release-v${{ steps.get_version.outputs.VERSION }}"
+          title: "Release v${{ steps.get_version.outputs.VERSION }}"
+          body: "Automated release PR for v${{ steps.get_version.outputs.VERSION }}"
           labels: "release"
           draft: false
           base: main
           delete-branch: true
-        env:
-          VERSION: ${{ steps.get_version.outputs.VERSION }}
 
       - name: Push tag if on main
         if: github.ref == 'refs/heads/main'
