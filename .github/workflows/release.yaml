@@ -57,7 +57,7 @@ jobs:
       - name: Commit version bump
         run: |
           git add package.json package-lock.json $(find ./src -name devcontainer-feature.json)
-          git diff --cached --quiet || git commit -m "chore(release): v$VERSION"
+          git diff --cached --quiet || git commit -m "chore(release): v$VERSION [skip ci]"
         env:
           VERSION: ${{ steps.get_version.outputs.VERSION }}
 
