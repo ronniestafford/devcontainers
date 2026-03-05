@@ -15,7 +15,7 @@ An example `.devcontainer/devcontainer.json` is included in this repo. Add it to
 ```
 devcontainers/
 ├── .devcontainer/                          # Used for testing features in local dev environment, not published
-│   └── devcontainer.json                   # Add to your own repo in order to specify features in your own devcontainer.
+│   └── devcontainer.json                   # Add to your own repo in order to specify features in your own devcontainer
 ├── .github                             
 │   └── workflows                       
 │       ├── publish.yml                     # Publish to container registry
@@ -24,7 +24,7 @@ devcontainers/
 ├── src                                     # Each folder in here is a separate feature, published
 │   ├── opencode
 │   │   ├── devcontainer-feature.json
-│   │   └── install.sh                      # Entry point of container.
+│   │   └── install.sh                      # Entry point of container
 |   ├── ...
 │   │   ├── devcontainer-feature.json
 │   │   └── install.sh
