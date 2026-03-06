@@ -6,7 +6,7 @@ This repo is based on [template-starter](https://github.com/devcontainers/templa
 See also devcontainer [org](https://github.com/devcontainers) and [CLI](https://github.com/devcontainers/cli).
 
 ## Using a Custom devcontainer Feature in Your Project Repo
-An example `.devcontainer/devcontainer.json` is included in this repo. Add it to your project repo to use the devcontainer.
+An example `.devcontainer/devcontainer.json` is included in this repo. Add it to your project repo to use the features listed in this project. The base image is chosen from Microsoft's devcontainer repository [here](https://hub.docker.com/r/microsoft/devcontainers).
 
 Custom features available:
 - [Opencode](https://opencode.ai/). The opencode devcontainer will look for `opencode.json` config in your project root folder as described [here](https://opencode.ai/docs/config/). An example `opencode-config-example.json` config file is included that you can rename and edit.
