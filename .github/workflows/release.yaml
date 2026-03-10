@@ -129,7 +129,8 @@ jobs:
               [ ! -f "$FEATURE_FILE" ] && continue
               is_version_changed_in_pr "$FEATURE_FILE" && {
                 echo "Version already changed for $FEATURE_FILE in this PR, skipping." 
-                continue}
+                continue
+              }
               bump_feature_version "$FEATURE_FILE"
             done
           }
