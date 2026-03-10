@@ -95,10 +95,15 @@ jobs:
         run: |
           set -euo pipefail
 
-          is_version_changed_in_pr() {
+          is_version_already_changed_in_pr() {
             local feature_file="$1"
-            git diff "$PRE_PR_COMMIT_SHA".."$PR_COMMIT_SHA" -- "$feature_file" | grep -q '"version"'
+            local old_version
+            old_version=$(git show "$PRE_PR_COMMIT_SHA:$feature_file" 2>/dev/null | jq -r '.version // empty')
+            local new_version
+            new_version=$(git show "$PR_COMMIT_SHA:$feature_file" 2>/dev/null | jq -r '.version // empty')
+            [ "$old_version" != "$new_version" ]
           }
+
 
           bump_feature_version() {
             local feature_file="$1"
@@ -128,7 +133,7 @@ jobs:
             for feature in $FEATURES; do
               FEATURE_FILE="./src/$feature/devcontainer-feature.json"
               [ ! -f "$FEATURE_FILE" ] && continue
-              is_version_changed_in_pr "$FEATURE_FILE" && {
+              is_version_already_changed_in_pr "$FEATURE_FILE" && {
                 echo "Version already changed for $FEATURE_FILE in this PR, skipping." 
                 continue
               }
