@@ -34,8 +34,8 @@ jobs:
           npm version patch --no-git-tag-version
           git add package.json package-lock.json
 
-      - name: Get repo version
-        id: get_repo_version
+      - name: Get repo bumped version
+        id: get_repo_bumped_version
         run: |
           REPO_NEW_VERSION=$(node -p "require('./package.json').version")
           echo "REPO_NEW_VERSION=$REPO_NEW_VERSION" >> $GITHUB_OUTPUT
@@ -49,60 +49,105 @@ jobs:
       - name: Detect which features have changes
         id: features
         run: |
-          FEATURES=$(git diff --name-only $PREV_COMMIT_SHA $TRIGGERING_COMMIT_SHA src \
-            | awk -F/ 'NF>2 {print $2}' \
-            | sort -u \
-            | while read f; do
-                [ -f "src/$f/devcontainer-feature.json" ] && echo "$f"
-              done)
+          set -euo pipefail
 
-          if [ -n "$FEATURES" ]; then
-            echo "Changed features:"
-            echo "$FEATURES"
-          else
-            echo "No features changed."
-          fi
+          get_changed_files () {
+            local prev_sha="$1"
+            local current_sha="$2"
+            local path="$3
+            git diff --name-only "$prev_sha" "$current_sha" "$path"
+          }
 
+          extract_unique_features() {
+            awk -F/ 'NF>2 {print $2}' | sort -u 
+          }
+
+          filter_features_for_json_config () {
+            while read -r feature; do
+              [ -f "src/$feature/devcontainer-feature.json" ] && echo "$feature"
+            done
+          }
+
+          get_changed_features_list() {
+            get_changed_files $PRE_PR_COMMIT_SHA $PR_COMMIT_SHA src \
+              | extract_unique_features \
+              | filter_features_for_json_config
+          }
+
+          #---------------------------------------------
+          # Main
+          #---------------------------------------------
+          FEATURES=$(get_changed_features_list)
+
+          [ -n "$FEATURES" ] && echo "Changed features:" && echo "$FEATURES" || echo "No features changed."
+
+          # Export FEATURES to GitHub Actions output
           {
             echo "features<<EOF"
             echo "$FEATURES"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
         env:
-          PREV_COMMIT_SHA: ${{ github.event.before }}
-          TRIGGERING_COMMIT_SHA: ${{github.sha}}
+          PRE_PR_COMMIT_SHA: ${{ github.event.before }}
+          PR_COMMIT_SHA: ${{github.sha}}
 
       - name: Update feature versions
         run: |
-          if [ -n "$FEATURES" ]; then
+          set -euo pipefail
+
+          is_version_changed_in_pr() {
+            local feature_file="$1"
+            git diff "$PRE_PR_COMMIT_SHA".."$PR_COMMIT_SHA" -- "$feature_file" | grep -q '"version"'
+          }
+
+          bump_feature_version() {
+            local feature_file="$1"
+
+            # Bump feature patch version
+            current_version=$(jq -r '.version' "$feature_file")
+            IFS='.' read -r major minor patch <<< "$current_version"
+            patch=$((patch + 1))
+            new_version="$major.$minor.$patch"
+            
+            tmpfile=$(mktemp --suffix=.json)
+            jq --arg version "$new_version" '.version = $version' "$feature_file" > "$tmpfile"
+            mv "$tmpfile" "$feature_file"
+            git add "$feature_file"
+            echo "Updated version in $feature_file and added to staging commit."
+          }
+
+          process_features() {
+            [ -z "$FEATURES" ] && { 
+              echo "No features changed, skipping bumping feature versions."
+              return }
+
             echo "Updating versions for changed features:"
             echo "$FEATURES"
+
             for feature in $FEATURES; do
               FEATURE_FILE="./src/$feature/devcontainer-feature.json"
-              if [ -f "$FEATURE_FILE" ]; then
-                CURRENT_VERSION=$(jq -r '.version' "$FEATURE_FILE")
-                IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
-                PATCH=$((PATCH + 1))
-                NEW_VERSION="$MAJOR.$MINOR.$PATCH"
-                
-                tmpfile=$(mktemp)
-                jq --arg version "$NEW_VERSION" '.version = $version' "$FEATURE_FILE" > "$tmpfile"
-                mv "$tmpfile" "$FEATURE_FILE"
-                git add "$FEATURE_FILE"
-                echo "Updated version in $FEATURE_FILE and added to staging commit."
-              fi
+              [ ! -f "$FEATURE_FILE" ] && continue
+              is_version_changed_in_pr "$FEATURE_FILE" && {
+                echo "Version already changed for $FEATURE_FILE in this PR, skipping." 
+                continue}
+              bump_feature_version "$FEATURE_FILE"
             done
-          else
-            echo "No features changed, skipping version updates."
-          fi
+          }
+
+          #---------------------------------------------
+          # Main
+          #---------------------------------------------
+          process_features
         env:
           FEATURES: ${{ steps.features.outputs.features }}
+          PRE_PR_COMMIT_SHA: ${{ github.event.before }}
+          PR_COMMIT_SHA: ${{github.sha}}
 
       - name: Commit documentation changes and version bumps (repo and feature versions are independent)
         run: |
           git diff --cached --quiet || git commit -m "chore(release): v$REPO_NEW_VERSION [skip ci]"
         env:
-          REPO_NEW_VERSION: ${{ steps.get_repo_version.outputs.REPO_NEW_VERSION }}
+          REPO_NEW_VERSION: ${{ steps.get_repo_bumped_version.outputs.REPO_NEW_VERSION }}
 
       - name: Push to main
         run: git push origin main
@@ -112,4 +157,4 @@ jobs:
           git tag -a "v$REPO_NEW_VERSION" -m "Release v$REPO_NEW_VERSION"
           git push origin "v$REPO_NEW_VERSION"
         env:
-          REPO_NEW_VERSION: ${{ steps.get_repo_version.outputs.REPO_NEW_VERSION }}
+          REPO_NEW_VERSION: ${{ steps.get_repo_bumped_version.outputs.REPO_NEW_VERSION }}
