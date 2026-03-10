@@ -54,7 +54,7 @@ jobs:
           get_changed_files () {
             local prev_sha="$1"
             local current_sha="$2"
-            local path="$3
+            local path="$3"
             git diff --name-only "$prev_sha" "$current_sha" "$path"
           }
 
