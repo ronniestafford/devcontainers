@@ -11,7 +11,7 @@
           }
         ]
       },
-      "extensions": ["mads-hartmann.bash-ide-vscode"]
+      "extensions": ["mads-hartmann.bash-ide-vscode", "sst.opencode"]
     }
   },
   //   "containerEnv": {
