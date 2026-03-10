@@ -2,7 +2,7 @@
   "id": "opencode",
   "name": "OpenCode CLI",
   "version": "0.0.33",
-  "description": "Installs OpenCode CLI inside a devcontainer.",
+  "description": "Installs OpenCode CLI inside devcontainer.",
   "documentationURL": "https://opencode.ai",
   "options": {
     "version": {
