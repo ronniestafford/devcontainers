@@ -119,7 +119,8 @@ jobs:
           process_features() {
             [ -z "$FEATURES" ] && { 
               echo "No features changed, skipping bumping feature versions."
-              return }
+              return
+            }
 
             echo "Updating versions for changed features:"
             echo "$FEATURES"
