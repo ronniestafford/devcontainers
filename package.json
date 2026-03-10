@@ -5,5 +5,5 @@
   "scripts": {
     "test:features": "devcontainer features test"
   },
-  "version": "0.0.37"
+  "version": "0.0.38"
 }
