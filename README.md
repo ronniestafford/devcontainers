@@ -10,6 +10,7 @@ An example `.devcontainer/devcontainer.json` is included in this repo. Add it to
 
 Custom features available:
 - [Opencode](https://opencode.ai/). The opencode devcontainer will look for `opencode.json` config in your project root folder as described [here](https://opencode.ai/docs/config/). An example `opencode-config-example.json` config file is included that you can rename and edit.
+- [TeX Live](https://www.tug.org/texlive/). Installs TeX Live, a comprehensive TeX distribution with LaTeX support.
 
 
 
@@ -27,6 +28,10 @@ devcontainers/
 │   ├── opencode
 │   │   ├── devcontainer-feature.json
 │   │   └── install.sh                      # Entry point of container
+│   ├── texlive
+│   │   ├── devcontainer-feature.json
+│   │   ├── install.sh                      # Entry point of container
+│   │   └── README.md                       # Feature documentation
 |   ├── ...
 │   │   ├── devcontainer-feature.json
 │   │   └── install.sh

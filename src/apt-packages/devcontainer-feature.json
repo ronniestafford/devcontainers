@@ -1,0 +1,15 @@
+{
+  "id": "apt-packages",
+  "name": "APT Packages",
+  "version": "0.0.1",
+  "description": "Installs a list of APT packages in the devcontainer.",
+  "documentationURL": "https://docs.docker.com/engine/reference/builder/",
+  "options": {
+    "packages": {
+      "type": "string",
+      "default": "",
+      "description": "List of APT packages to install, separated by spaces"
+    }
+  },
+  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+}

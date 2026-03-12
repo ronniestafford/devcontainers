@@ -1,8 +1,37 @@
 {
   "editor.formatOnSave": true,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.tabSize": 2,
+  "[shellscript]": {
+    "editor.defaultFormatter": "mads-hartmann.bash-ide-vscode",
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true
   },
-  "cSpell.words": ["opencode"],
-  "editor.tabSize": 2
+  "shellformat.effectLanguages": [
+    "bash",
+    "shell",
+    "shellscript",
+    "dockerfile",
+    "dotenv",
+    "ignore",
+    "gitignore",
+    "properties"
+  ],
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "cSpell.words": [
+    "documentclass",
+    "esbenp",
+    "foxundermoon",
+    "mktemp",
+    "nvmrc",
+    "opencode",
+    "OPENCODEVERSION",
+    "pdflatex",
+    "pipefail",
+    "shellcheck",
+    "shfmt",
+    "texlive"
+  ]
 }

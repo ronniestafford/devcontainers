@@ -4,6 +4,7 @@
   "customizations": {
     "vscode": {
       "settings": {
+        "extensions.ignoreRecommendations": true,
         "json.schemas": [
           {
             "fileMatch": ["*/devcontainer-feature.json"],
@@ -11,7 +12,13 @@
           }
         ]
       },
-      "extensions": ["mads-hartmann.bash-ide-vscode", "sst.opencode"]
+      "extensions": [
+        "mads-hartmann.bash-ide-vscode",
+        "sst-dev.opencode",
+        "esbenp.prettier-vscode",
+        "foxundermoon.shell-format",
+        "timonwong.shellcheck"
+      ]
     }
   },
   //   "containerEnv": {
@@ -19,9 +26,14 @@
   //     "OPENAI_BASE_URL": "http://host.docker.internal:8000/v1"
   //   },
   "features": {
-    "ghcr.io/ronniestafford/devcontainers/opencode:latest": {},
+    "ghcr.io/ronniestafford/devcontainers/opencode:latest": {
+      "opencodeversion": "1.2.0"
+    },
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers/features/node:1": {}
+    "ghcr.io/devcontainers/features/node:1": {},
+    "./features/apt-packages": {
+      "packages": "shfmt"
+    }
   },
   "mounts": [
     // {

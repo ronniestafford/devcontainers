@@ -5,7 +5,7 @@
   "description": "Installs OpenCode CLI inside devcontainer.",
   "documentationURL": "https://opencode.ai",
   "options": {
-    "version": {
+    "opencodeversion": {
       "type": "string",
       "default": "latest",
       "description": "OpenCode version to install"

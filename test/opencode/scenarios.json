@@ -1,26 +1,26 @@
 {
-    "pinned-version": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "opencode": {
-                "version": "1.0.180"
-            }
-        }
-    },
-    "latest-not-specified-version": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "opencode": {
-                "version": ""
-            }
-        }
-    },
-    "latest-specified-version": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "opencode": {
-                "version": "latest"
-            }
-        }
+  "pinned-version": {
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+      "opencode": {
+        "opencodeversion": "1.0.180"
+      }
     }
+  },
+  "latest-not-specified-version": {
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+      "opencode": {
+        "opencodeversion": ""
+      }
+    }
+  },
+  "latest-specified-version": {
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+      "opencode": {
+        "opencodeversion": "latest"
+      }
+    }
+  }
 }
