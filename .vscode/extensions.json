@@ -1,9 +1,12 @@
 {
   "recommendations": [
-    "sst-dev.opencode",
     "ms-vscode-remote.remote-containers",
     "ms-azuretools.vscode-docker",
     "docker.docker",
-    "ms-azuretools.vscode-containers"
+    "ms-azuretools.vscode-containers",
+    "mads-hartmann.bash-ide-vscode",
+    "esbenp.prettier-vscode",
+    "foxundermoon.shell-format",
+    "timonwong.shellcheck"
   ]
 }

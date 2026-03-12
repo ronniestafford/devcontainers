@@ -7,7 +7,9 @@ Installs OpenCode CLI inside a dev container
 
 ```json
 "features": {
-    "ghcr.io/ronniestafford/devcontainers/opencode:1": {}
+    "ghcr.io/ronniestafford/devcontainers/opencode:latest": {
+        "opencodeversion": "1.2.0"
+    }
 }
 ```
 
@@ -15,7 +17,7 @@ Installs OpenCode CLI inside a dev container
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| version | OpenCode version to install | string | latest |
+| opencodeversion | OpenCode version to install | string | latest |
 
 
 

@@ -5,10 +5,9 @@ source dev-container-features-test-lib
 
 echo "=========================== BEGIN SCENARIO TEST ==========================="
 
-check "Check expected version in scenario: ${EXPECTED_VERSION}" 
+check "Check expected version in scenario: ${EXPECTED_VERSION}"
 check "Check opencode location" which opencode
 
-# 3. Verify version output
 EXPECTED_VERSION=${EXPECTED_VERSION:-latest}
 INSTALLED_VERSION="$(opencode --version)"
 

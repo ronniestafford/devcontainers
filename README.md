@@ -10,6 +10,8 @@ An example `.devcontainer/devcontainer.json` is included in this repo. Add it to
 
 Custom features available:
 - [Opencode](https://opencode.ai/). The opencode devcontainer will look for `opencode.json` config in your project root folder as described [here](https://opencode.ai/docs/config/). An example `opencode-config-example.json` config file is included that you can rename and edit.
+- [TeX Live](https://www.tug.org/texlive/). Installs TeX Live, a comprehensive TeX distribution with LaTeX support.
+- APT Packages. Installs arbitrary `apt-get` Ubuntu/Debian packages. 
 
 
 
@@ -24,12 +26,14 @@ devcontainers/
 │       ├── test.yaml                       # Test 
 │       └── validate.yaml                   # Validate for PRs
 ├── src                                     # Each folder in here is a separate feature, published
-│   ├── opencode
-│   │   ├── devcontainer-feature.json
+│   ├── featureName
+│   │   ├── devcontainer-feature.json       # Feature description
 │   │   └── install.sh                      # Entry point of container
+│   │   └── README.md                       # Feature documentation
 |   ├── ...
 │   │   ├── devcontainer-feature.json
 │   │   └── install.sh
+│   │   └── README.md                       
 ├── test                                    # Each folder in here tests a separate feature
 │   ├── opencode
 │   │   ├── common_scenario_test.json       # Common scenario test script
@@ -45,7 +49,7 @@ devcontainers/
 ```
 
 ## Local Feature Development
-### Dependencies (Tests)
+### Test Dependencies
 
 The following installs node via nvm as described [here](https://nodejs.org/en/download/package-manager).
 
@@ -62,10 +66,11 @@ $ node -v            # verifies the right Node.js version is in the environment
 $ npm -v             # verifies the right npm version is in the environment
 ```
 
-### Run Tests
+### Running Tests
 Make sure all shell test scripts are executable `chmod +x "${SHELL_SCRIPT}"`.
 
 ```bash
 $ npm i
-$ npm run test:features
+$ npm run test:individual   # Runs all `test/*/test.sh` tests
+$ npm run test:scenarios    # Runs all `test/*/scenarios.json` tests
 ```

@@ -13,6 +13,7 @@ jobs:
       matrix:
         features:
           - opencode
+          - texlive
         baseImage:
           - debian:latest
           - ubuntu:latest
@@ -37,6 +38,7 @@ jobs:
     strategy:
       matrix:
         features:
+          - apt-packages
           - opencode
     steps:
       - uses: actions/checkout@v4
