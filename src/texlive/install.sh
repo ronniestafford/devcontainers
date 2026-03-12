@@ -14,6 +14,7 @@ basic)
     texlive-latex-base \
     texlive-latex-recommended \
     texlive-latex-extra \
+    texlive-extra-utils \
     latexmk \
     inkscape \
     biber
@@ -24,6 +25,7 @@ extra)
     texlive-latex-base \
     texlive-latex-recommended \
     texlive-latex-extra \
+    texlive-extra-utils \
     texlive-fonts-recommended \
     texlive-fonts-extra \
     latexmk \
@@ -33,8 +35,7 @@ extra)
 full)
   echo "Installing full TeX Live..."
   apt-get install -y texlive-full \
-  inkscape
-
+    inkscape
   ;;
 *)
   echo "Unknown option '$PACKAGES', installing basic..."
@@ -42,6 +43,7 @@ full)
     texlive-latex-base \
     texlive-latex-recommended \
     texlive-latex-extra \
+    texlive-extra-utils \
     latexmk \
     inkscape \
     biber
