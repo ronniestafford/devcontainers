@@ -17,6 +17,10 @@ echo "=========================== BEGIN STANDARD TEST ==========================
 # The 'check' command comes from the dev-container-features-test-lib.
 check "tex command is available" command -v tex
 check "pdflatex command is available" command -v pdflatex
+check "latexmk command is available" command -v latexmk
+check "inkscape command is available" command -v inkscape
+check "biber command is available" command -v biber
+
 check_latex_compilation
 
 # Clean up
