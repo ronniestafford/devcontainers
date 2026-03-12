@@ -13,7 +13,8 @@ basic)
   apt-get install -y --no-install-recommends \
     texlive-latex-base \
     texlive-latex-recommended \
-    texlive-latex-extra
+    texlive-latex-extra \
+    latexmk
   ;;
 extra)
   echo "Installing extra TeX Live packages..."
@@ -22,7 +23,8 @@ extra)
     texlive-latex-recommended \
     texlive-latex-extra \
     texlive-fonts-recommended \
-    texlive-fonts-extra
+    texlive-fonts-extra \
+    latexmk
   ;;
 full)
   echo "Installing full TeX Live..."
@@ -33,7 +35,8 @@ full)
   apt-get install -y --no-install-recommends \
     texlive-latex-base \
     texlive-latex-recommended \
-    texlive-latex-extra
+    texlive-latex-extra \
+    latexmk
   ;;
 esac
 
