@@ -20,6 +20,7 @@ check "pdflatex command is available" command -v pdflatex
 check "latexmk command is available" command -v latexmk
 check "inkscape command is available" command -v inkscape
 check "biber command is available" command -v biber
+check "latexindent command is available" command -v latexindent
 
 check_latex_compilation
 
