@@ -47,7 +47,7 @@ jobs:
           base-path-to-features: "./src"
 
       - name: Stage generated feature docs
-        run: git add ./src/*/README.md
+        run: git add ./src/**/README.md
 
       - name: Detect which features have changes
         id: features

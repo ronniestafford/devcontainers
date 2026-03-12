@@ -1,7 +1,7 @@
 {
   "id": "apt-packages",
   "name": "APT Packages",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Installs a list of APT packages in the devcontainer.",
   "documentationURL": "https://docs.docker.com/engine/reference/builder/",
   "options": {
