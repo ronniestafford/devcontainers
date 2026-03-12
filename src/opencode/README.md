@@ -1,15 +1,13 @@
 
 # OpenCode CLI (opencode)
 
-Installs OpenCode CLI inside a dev container
+Installs OpenCode CLI inside devcontainer.
 
 ## Example Usage
 
 ```json
 "features": {
-    "ghcr.io/ronniestafford/devcontainers/opencode:latest": {
-        "opencodeversion": "1.2.0"
-    }
+    "ghcr.io/ronniestafford/devcontainers/opencode:0": {}
 }
 ```
 
