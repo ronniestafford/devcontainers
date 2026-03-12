@@ -1,7 +1,7 @@
 {
   "id": "texlive",
   "name": "TeX Live",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Installs TeX Live, a comprehensive TeX distribution with LaTeX support.",
   "documentationURL": "https://www.tug.org/texlive/",
   "options": {
