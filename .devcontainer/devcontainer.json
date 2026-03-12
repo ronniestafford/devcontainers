@@ -29,9 +29,9 @@
     "ghcr.io/ronniestafford/devcontainers/opencode:latest": {
       "opencodeversion": "1.2.0"
     },
-    "ghcr.io/ronniestafford/devcontainers/apt-packages:latest": {
-      "packages": "shfmt"
-    },
+    // "ghcr.io/ronniestafford/devcontainers/apt-packages:latest": {
+    //   "packages": "shfmt"
+    // },
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/node:1": {}
   },
