@@ -9,7 +9,12 @@ if [ -z "$PACKAGES" ]; then
 fi
 
 echo "Installing packages: $PACKAGES"
-apt-get update
+
+# Ensure curl exists (for minimal images)
+if ! command -v curl >/dev/null 2>&1; then
+    apt-get update
+    apt-get install -y curl
+fi
 
 # shellcheck disable=SC2086
 apt-get install -y --no-install-recommends $PACKAGES
