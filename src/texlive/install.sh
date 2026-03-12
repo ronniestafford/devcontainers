@@ -17,7 +17,8 @@ basic)
     texlive-extra-utils \
     latexmk \
     inkscape \
-    biber
+    biber \
+    libyaml-tiny-perl
   ;;
 extra)
   echo "Installing extra TeX Live packages..."
@@ -30,12 +31,14 @@ extra)
     texlive-fonts-extra \
     latexmk \
     inkscape \
-    biber
+    biber \
+    libyaml-tiny-perl
   ;;
 full)
   echo "Installing full TeX Live..."
   apt-get install -y texlive-full \
-    inkscape
+    inkscape \
+    libyaml-tiny-perl
   ;;
 *)
   echo "Unknown option '$PACKAGES', installing basic..."
@@ -46,7 +49,8 @@ full)
     texlive-extra-utils \
     latexmk \
     inkscape \
-    biber
+    biber \
+    libyaml-tiny-perl
   ;;
 esac
 

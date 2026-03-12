@@ -21,7 +21,8 @@ check "latexmk command is available" command -v latexmk
 check "inkscape command is available" command -v inkscape
 check "biber command is available" command -v biber
 check "latexindent command is available" command -v latexindent
-
+check "libyaml-tiny-perl installed and usable" \
+    bash -c 'perl -MYAML::Tiny -e "print qq(YAML::Tiny loaded\n)"'
 check_latex_compilation
 
 # Clean up
