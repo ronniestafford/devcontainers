@@ -7,7 +7,7 @@ Installs TeX Live, a comprehensive TeX distribution with LaTeX support.
 
 ```json
 "features": {
-    "ghcr.io/ronniestafford/devcontainers/texlive:0": {}
+    "ghcr.io/ronniestafford/devcontainers/texlive:1": {}
 }
 ```
 

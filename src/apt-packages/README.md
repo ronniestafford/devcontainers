@@ -7,7 +7,7 @@ Installs a list of APT packages in the devcontainer.
 
 ```json
 "features": {
-    "ghcr.io/ronniestafford/devcontainers/apt-packages:0": {}
+    "ghcr.io/ronniestafford/devcontainers/apt-packages:1": {}
 }
 ```
 

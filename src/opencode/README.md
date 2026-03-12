@@ -7,7 +7,7 @@ Installs OpenCode CLI inside devcontainer.
 
 ```json
 "features": {
-    "ghcr.io/ronniestafford/devcontainers/opencode:0": {}
+    "ghcr.io/ronniestafford/devcontainers/opencode:1": {}
 }
 ```
 
