@@ -1,7 +1,7 @@
 {
   "id": "texlive",
   "name": "TeX Live",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Installs TeX Live, a comprehensive TeX distribution with LaTeX support.",
   "documentationURL": "https://www.tug.org/texlive/",
   "options": {
@@ -11,5 +11,7 @@
       "description": "Package selection: basic, extra, or full"
     }
   },
-  "installsAfter": ["ghcr.io/devcontainers/features/common-utils"]
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils"
+  ]
 }
