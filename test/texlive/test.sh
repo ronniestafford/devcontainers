@@ -13,15 +13,15 @@ check_latex_installed() {
 
 check_latexindent_installed() {
   check "latexindent installed" \
-      command -v latexindent
+    command -v latexindent
   check "YAML::Tiny installed and usable" \
-      perl -MYAML::Tiny -e 'print "YAML::Tiny loaded\n"'
+    perl -MYAML::Tiny -e 'print "YAML::Tiny loaded\n"'
   check "File::HomeDir installed and usable" \
-      perl -MFile::HomeDir -e 'print "File::HomeDir loaded\n"'
+    perl -MFile::HomeDir -e 'print "File::HomeDir loaded\n"'
   check "File::Which installed and usable" \
-      perl -MFile::Which -e 'print "File::Which loaded\n"'
+    perl -MFile::Which -e 'print "File::Which loaded\n"'
   check "Log::Dispatch installed and usable" \
-      perl -MLog::Dispatch -e 'print "Log::Dispatch loaded\n"'
+    perl -MLog::Dispatch -e 'print "Log::Dispatch loaded\n"'
 }
 
 check_latex_compilation() {
