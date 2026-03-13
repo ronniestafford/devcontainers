@@ -23,7 +23,6 @@ install_latex_basic() {
     biber
 }
 
-
 echo "Installing TeX Live..."
 
 PACKAGES="${PACKAGES:-basic}"
