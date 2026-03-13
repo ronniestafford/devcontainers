@@ -3,6 +3,27 @@
 set -euo pipefail
 source dev-container-features-test-lib
 
+check_latex_installed() {
+  check "tex command is available" command -v tex
+  check "pdflatex command is available" command -v pdflatex
+  check "latexmk command is available" command -v latexmk
+  check "inkscape command is available" command -v inkscape
+  check "biber command is available" command -v biber
+}
+
+check_latexindent_installed() {
+  check "latexindent installed" \
+      command -v latexindent
+  check "YAML::Tiny installed and usable" \
+      perl -MYAML::Tiny -e 'print "YAML::Tiny loaded\n"'
+  check "File::HomeDir installed and usable" \
+      perl -MFile::HomeDir -e 'print "File::HomeDir loaded\n"'
+  check "File::Which installed and usable" \
+      perl -MFile::Which -e 'print "File::Which loaded\n"'
+  check "Log::Dispatch installed and usable" \
+      perl -MLog::Dispatch -e 'print "Log::Dispatch loaded\n"'
+}
+
 check_latex_compilation() {
   echo '\documentclass{article}
     \begin{document}
@@ -15,14 +36,8 @@ echo "=========================== BEGIN STANDARD TEST ==========================
 
 # Feature-specific tests
 # The 'check' command comes from the dev-container-features-test-lib.
-check "tex command is available" command -v tex
-check "pdflatex command is available" command -v pdflatex
-check "latexmk command is available" command -v latexmk
-check "inkscape command is available" command -v inkscape
-check "biber command is available" command -v biber
-check "latexindent command is available" command -v latexindent
-check "libyaml-tiny-perl installed and usable" \
-    bash -c 'perl -MYAML::Tiny -e "print qq(YAML::Tiny loaded\n)"'
+check_latex_installed
+check_latexindent_installed
 check_latex_compilation
 
 # Clean up

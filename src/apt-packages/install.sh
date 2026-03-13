@@ -16,6 +16,7 @@ if ! command -v curl >/dev/null 2>&1; then
     apt-get install -y curl
 fi
 
+apt-get update
 # shellcheck disable=SC2086
 apt-get install -y --no-install-recommends $PACKAGES
 

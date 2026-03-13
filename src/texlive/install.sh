@@ -2,6 +2,28 @@
 set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
 
+install_latexindent() {
+  apt-get install -y --no-install-recommends \
+    texlive-extra-utils \
+    build-essential \
+    perl \
+    cpanminus \
+    libyaml-tiny-perl
+
+  cpanm File::HomeDir File::Which Log::Dispatch YAML::Tiny
+}
+
+install_latex_basic() {
+  apt-get install -y --no-install-recommends \
+    texlive-latex-base \
+    texlive-latex-recommended \
+    texlive-latex-extra \
+    latexmk \
+    inkscape \
+    biber
+}
+
+
 echo "Installing TeX Live..."
 
 PACKAGES="${PACKAGES:-basic}"
@@ -10,47 +32,26 @@ apt-get update
 case "$PACKAGES" in
 basic)
   echo "Installing basic TeX Live packages..."
-  apt-get install -y --no-install-recommends \
-    texlive-latex-base \
-    texlive-latex-recommended \
-    texlive-latex-extra \
-    texlive-extra-utils \
-    latexmk \
-    inkscape \
-    biber \
-    libyaml-tiny-perl
+  install_latex_basic
+  install_latexindent
   ;;
 extra)
   echo "Installing extra TeX Live packages..."
+  install_latex_basic
+  install_latexindent
   apt-get install -y --no-install-recommends \
-    texlive-latex-base \
-    texlive-latex-recommended \
-    texlive-latex-extra \
-    texlive-extra-utils \
     texlive-fonts-recommended \
-    texlive-fonts-extra \
-    latexmk \
-    inkscape \
-    biber \
-    libyaml-tiny-perl
+    texlive-fonts-extra
   ;;
 full)
   echo "Installing full TeX Live..."
   apt-get install -y texlive-full \
-    inkscape \
-    libyaml-tiny-perl
+    inkscape
   ;;
 *)
   echo "Unknown option '$PACKAGES', installing basic..."
-  apt-get install -y --no-install-recommends \
-    texlive-latex-base \
-    texlive-latex-recommended \
-    texlive-latex-extra \
-    texlive-extra-utils \
-    latexmk \
-    inkscape \
-    biber \
-    libyaml-tiny-perl
+  install_latex_basic
+  install_latexindent
   ;;
 esac
 
