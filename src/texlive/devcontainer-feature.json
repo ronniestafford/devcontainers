@@ -7,7 +7,7 @@
   "options": {
     "packages": {
       "type": "string",
-      "default": "basic",
+      "default": "full",
       "description": "Package selection: basic, extra, or full"
     }
   },
