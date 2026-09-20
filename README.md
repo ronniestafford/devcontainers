@@ -71,6 +71,8 @@ Make sure all shell test scripts are executable `chmod +x "${SHELL_SCRIPT}"`.
 
 ```bash
 $ npm i
+$ docker builer prune       # Rebuild test containers.
 $ npm run test:individual   # Runs all `test/*/test.sh` tests
 $ npm run test:scenarios    # Runs all `test/*/scenarios.json` tests
+$ npm run test:texlive      # Runs just the texlive tests.
 ```
