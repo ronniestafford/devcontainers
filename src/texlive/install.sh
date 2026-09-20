@@ -4,8 +4,11 @@ set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
 
 APT_OPTS=(
-  -o Acquire::Retries=5
-  -o Acquire::http::Pipeline-Depth=0
+  -o "Acquire::http::Pipeline-Depth=0"
+  -o "Acquire::http::No-Cache=true"
+  -o "Acquire::BrokenProxy=true"
+  -o "Acquire::Retries=5"
+  -o "Acquire::CompressionTypes::Order::=gz"
 )
 
 install_latexindent() {
@@ -30,7 +33,8 @@ install_latex_basic() {
     texlive-latex-extra \
     latexmk \
     inkscape \
-    biber
+    biber \
+    qpdf
 }
 
 echo "Installing TeX Live..."
@@ -64,9 +68,10 @@ extra)
 
 full)
   echo "Installing full TeX Live..."
-  apt-get "${APT_OPTS[@]}" install -y \
+  apt-get "${APT_OPTS[@]}" install -y --no-install-recommends \
     texlive-full \
-    inkscape
+    inkscape \
+    qpdf
   ;;
 
 *)
