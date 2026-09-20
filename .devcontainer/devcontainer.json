@@ -7,7 +7,9 @@
         "extensions.ignoreRecommendations": true,
         "json.schemas": [
           {
-            "fileMatch": ["*/devcontainer-feature.json"],
+            "fileMatch": [
+              "*/devcontainer-feature.json"
+            ],
             "url": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json"
           }
         ]
@@ -17,14 +19,14 @@
         "sst-dev.opencode",
         "esbenp.prettier-vscode",
         "foxundermoon.shell-format",
-        "timonwong.shellcheck"
+        "timonwong.shellcheck",
+        "ms-azuretools.vscode-containers",
+        "ms-vscode-remote.remote-containers",
+        "ms-azuretools.vscode-docker",
+        "docker.docker"
       ]
     }
   },
-  //   "containerEnv": {
-  //     "OPENAI_API_KEY": "local",
-  //     "OPENAI_BASE_URL": "http://host.docker.internal:8000/v1"
-  //   },
   "features": {
     "ghcr.io/ronniestafford/devcontainers/opencode:latest": {
       "opencodeversion": "1.2.0"
@@ -32,15 +34,11 @@
     "ghcr.io/ronniestafford/devcontainers/apt-packages:latest": {
       "packages": "shfmt"
     },
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/node:1": {}
   },
   "mounts": [
-    // {
-    //   "source": "${localEnv:HOME}/.config/opencode",
-    //   "target": "/home/dev/.config/opencode",
-    //   "type": "bind"
-    // },
     {
       "source": "${localWorkspaceFolder}",
       "target": "/workspace",
